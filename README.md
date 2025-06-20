@@ -32,7 +32,8 @@ this.serverSecurityGroup.addIngressRule(
 ```
 ### Wireguard Endpoint:
 In your Wireguard client confifurations, the EndPoint parameter will be "networkLoadBalancerDNSName:443".
-- Example: `my-example-nlb-4e2d1f8bb2751e6a.elb.eu-central-1.amazonaws.com:433`
+- Example: 
+    - `Endpoint = my-example-nlb-4e2d1f8bb2751e6a.elb.eu-central-1.amazonaws.com:433`
 
 ## Useful Commands
 
