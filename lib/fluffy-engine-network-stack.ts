@@ -62,7 +62,7 @@ export class FluffyEngineNetworkStack extends cdk.Stack {
     // Create target group for VPN
     const targetGroup = new elbv2.NetworkTargetGroup(this, 'FluffyEngineTargetGroup', {
       vpc: this.vpc,
-      port: 51260,
+      port: <YOUR-WIREGUARD-SERVER-PORT>,
       protocol: elbv2.Protocol.UDP,
       targetType: elbv2.TargetType.INSTANCE,
       healthCheck: {
