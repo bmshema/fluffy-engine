@@ -21,7 +21,7 @@ export class FluffyEngineServerStack extends cdk.Stack {
         vpcSubnets: {
           subnetType: ec2.SubnetType.PUBLIC,
         },
-        instanceType: ec2.InstanceType.of(ec2.InstanceClass.M4, ec2.InstanceSize.SMALL),
+        instanceType: ec2.InstanceType.of(ec2.InstanceClass.T3, ec2.InstanceSize.MEDIUM),
         machineImage: ec2.MachineImage.fromSsmParameter(
           '/aws/service/canonical/ubuntu/server/22.04/stable/current/amd64/hvm/ebs-gp2/ami-id',
           { os: ec2.OperatingSystemType.LINUX}
