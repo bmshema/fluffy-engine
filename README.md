@@ -2,6 +2,8 @@
 
 An AWS CDK app that provisions one or more EC2 instances behind a network load balancer with basic target group traffic routing for Wireguard VPN clients.
 
+![image](https://github.com/user-attachments/assets/a32a4d12-2ca1-4813-8e9b-2bf81af6f9af)
+
 ## Useful commands
 
 * `npm run build`   compile typescript to js
