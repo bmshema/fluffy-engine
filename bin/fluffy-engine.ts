@@ -1,24 +1,24 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import * as ssm from 'aws-cdk-lib/aws-ssm'
 import { FluffyEngineServerStack } from '../lib/fluffy-engine-server-stack';
 import { FluffyEngineNetworkStack } from '../lib/fluffy-engine-network-stack';
 
 const app = new cdk.App();
 
-// Create stack to retrive env parameters
-const envStack = new cdk.Stack(app, 'FluffyEngineEnvStack');
+// Get deployment environment from context
+const targetAccount = app.node.tryGetContext('account');
+const targetRegion = app.node.tryGetContext('region');
 
-// Get account ID and region from env stack
-const accountId = ssm.StringParameter.valueForStringParameter(envStack,'/environment/account-id');
-const region = ssm.StringParameter.valueForStringParameter(envStack,'/environment/region');
+if (!targetAccount || !targetRegion) {
+  throw new Error('Please provide account and region through context. Example: cdk deploy --context account=123456789012 --context region=us-east-1');
+}
 
 // Create the network stack
 const networkStack = new FluffyEngineNetworkStack(app, 'FluffyEngineNetworkStack', {
   env: {
-    account: accountId,
-    region: region,
+    account: targetAccount,
+    region: targetRegion,
   },
 });
 
@@ -27,8 +27,8 @@ const serverStack = new FluffyEngineServerStack(app, 'FluffyEngineServerStack', 
   vpc: networkStack.vpc,
   securityGroup: networkStack.serverSecurityGroup,
   env: {
-    account: accountId,
-    region: region,
+    account: targetAccount,
+    region: targetRegion,
   }
 });
 
