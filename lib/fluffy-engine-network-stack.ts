@@ -4,7 +4,7 @@ import * as elbv2 from 'aws-cdk-lib/aws-elasticloadbalancingv2';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
 import { Construct } from 'constructs';
 
-export interface NerworkStackProps extends cdk.StackProps {
+export interface NetworkStackProps extends cdk.StackProps {
   instanceId?: string;
 }
 
@@ -13,7 +13,7 @@ export class FluffyEngineNetworkStack extends cdk.Stack {
   public readonly nlbSecurityGroup: ec2.SecurityGroup;
   public readonly serverSecurityGroup: ec2.SecurityGroup;
   
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props: NetworkStackProps) {
     super(scope, id, props);
 
     const adminIp = ssm.StringParameter.valueFromLookup(this, '/environment/admin-ip');
