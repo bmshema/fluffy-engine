@@ -16,8 +16,8 @@ export class FluffyEngineNetworkStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: NetworkStackProps) {
     super(scope, id, props);
 
-    const adminIp = ssm.StringParameter.valueFromLookup(this, '/environment/admin-ip');
-    const wgPort = ssm.StringParameter.valueFromLookup(this, '/environment/wg-port');
+    // const adminIp = ssm.StringParameter.valueFromLookup(this, '/environment/admin-ip');
+    // const wgPort = ssm.StringParameter.valueFromLookup(this, '/environment/wg-port');
 
     // VPC
     this.vpc = new ec2.Vpc(this, 'FluffyEngineVPC', {
@@ -85,7 +85,7 @@ export class FluffyEngineNetworkStack extends cdk.Stack {
 
     // Inbound rule for SSH
     this.serverSecurityGroup.addIngressRule(
-      ec2.Peer.ipv4(adminIp),
+      ec2.Peer.ipv4('<YOURADMINIP>'),
       ec2.Port.tcp(22),
       'Allow SSH from admin IP only'
     );
@@ -93,7 +93,7 @@ export class FluffyEngineNetworkStack extends cdk.Stack {
     // ec2 inbound rule for wireguard client traffic
     this.serverSecurityGroup.addIngressRule(
       ec2.Peer.securityGroupId(this.nlbSecurityGroup.securityGroupId),
-      ec2.Port.udp(parseInt(wgPort)),
+      ec2.Port.udp(<YOUR-WIREGUARD-SERVER-PORT>),
       'Allow VPN traffic from NLB only'
     );
 
